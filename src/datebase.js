@@ -1,4 +1,4 @@
-import { todayDate } from "./utils/today-data.js";
+import { todayDate } from "./utils/today-date.js";
 
 export class Database {
   #database = {};
@@ -12,16 +12,14 @@ export class Database {
     else this.#database[table] = [data];
   }
 
-  update(table, id, data) {
+  update(table, id, newData) {
     const rowIndex = this.#database[table].findIndex((row) => row.id === id);
-    const { completed_at, created_at } = this.#database[table][rowIndex];
+    const data = this.#database[table][rowIndex];
 
     if (rowIndex > -1) {
       this.#database[table][rowIndex] = {
-        id,
         ...data,
-        completed_at,
-        created_at,
+        ...newData,
         updated_at: todayDate(),
       };
     }
@@ -32,20 +30,6 @@ export class Database {
 
     if (rowIndex > -1) {
       this.#database[table].splice(rowIndex, 1);
-    }
-  }
-
-  updateTaskState(table, id) {
-    const rowIndex = this.#database[table].findIndex((row) => row.id === id);
-    const data = this.#database[table][rowIndex];
-
-    if (rowIndex > -1) {
-      this.#database[table][rowIndex] = {
-        id,
-        ...data,
-        completed_at: todayDate(),
-        updated_at: todayDate(),
-      };
     }
   }
 }

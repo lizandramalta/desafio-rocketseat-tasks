@@ -1,7 +1,7 @@
 import { Database } from "./datebase.js";
 import { randomUUID } from "node:crypto";
 import { buildRoutePath } from "./utils/build-route-path.js";
-import { todayDate } from "./utils/today-data.js";
+import { todayDate } from "./utils/today-date.js";
 
 const database = new Database();
 
@@ -54,8 +54,9 @@ export const routes = [
     path: buildRoutePath("/tasks/:id/complete"),
     handler: (req, res) => {
       const { id } = req.params;
+      const completed_at = todayDate();
 
-      database.updateTaskState("tasks", id);
+      database.update("tasks", id, { completed_at });
 
       return res.writeHead(204).end();
     },
