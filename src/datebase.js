@@ -1,4 +1,5 @@
 import { todayDate } from "./utils/today-date.js";
+import { writeCSV } from "./utils/write-csv.js";
 
 export class Database {
   #database = {};
@@ -10,6 +11,7 @@ export class Database {
   insert(table, data) {
     if (Array.isArray(this.#database[table])) this.#database[table].push(data);
     else this.#database[table] = [data];
+    writeCSV(this.#database[table]);
   }
 
   update(table, id, newData) {
@@ -22,6 +24,7 @@ export class Database {
         ...newData,
         updated_at: todayDate(),
       };
+      writeCSV(this.#database[table]);
     }
   }
 
@@ -30,6 +33,7 @@ export class Database {
 
     if (rowIndex > -1) {
       this.#database[table].splice(rowIndex, 1);
+      writeCSV(this.#database[table]);
     }
   }
 }
