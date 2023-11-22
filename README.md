@@ -68,7 +68,6 @@ Sinta-se à vontade para contribuir com melhorias ou correções neste projeto. 
 
 ---
 
-**Desenvolvido por Lizandra Malta**
-**github: lizandramalta**
+**Desenvolvido por Lizandra Malta - github.com/lizandramalta**
 
 _Este projeto foi desenvolvido como parte do desafio proposto pela Rocketseat._
