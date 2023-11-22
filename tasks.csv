@@ -1,2 +1,4 @@
-title,description
-Task 01,Description task 01
+id,title,description,completed_at,created_at,updated_at
+f13a04ed-fb42-40b4-9b88-96729c3c9c0c,Task 01,Description task 01,22/11/2023,22/11/2023,22/11/2023
+6866619c-239b-42a2-9389-ab624270175b,Task 02,Description task 02,null,22/11/2023,22/11/2023
+2908abe4-56c8-48d2-b7fa-74b37c0fa7b1,Task 03,Description task 03,null,22/11/2023,22/11/2023

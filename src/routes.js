@@ -19,12 +19,17 @@ export const routes = [
     method: "POST",
     path: buildRoutePath("/tasks"),
     handler: (req, res) => {
-      const { title, description } = req.body;
-      const task = {
-        id: randomUUID(),
+      const {
+        id: savedId,
         title,
         description,
-        completed_at: null,
+        completed_at: savedCompletedState,
+      } = req.body;
+      const task = {
+        id: savedId ?? randomUUID(),
+        title,
+        description,
+        completed_at: savedCompletedState ?? null,
         created_at: todayDate(),
         updated_at: todayDate(),
       };

@@ -1,8 +1,19 @@
+import { readCSV } from "./utils/read-csv.js";
 import { todayDate } from "./utils/today-date.js";
 import { writeCSV } from "./utils/write-csv.js";
 
 export class Database {
   #database = {};
+
+  constructor() {
+    readCSV()
+      .then((data) => {
+        this.#database = JSON.parse(data);
+      })
+      .catch(() => {
+        writeCSV([]);
+      });
+  }
 
   select(table) {
     return this.#database[table] ?? [];
