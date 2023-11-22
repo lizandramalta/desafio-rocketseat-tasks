@@ -23,13 +23,13 @@ export const routes = [
         id: savedId,
         title,
         description,
-        completed_at: savedCompletedState,
+        completed_at: savedCompletedDate,
       } = req.body;
       const task = {
         id: savedId ?? randomUUID(),
         title,
         description,
-        completed_at: savedCompletedState ?? null,
+        completed_at: savedCompletedDate ?? null,
         created_at: todayDate(),
         updated_at: todayDate(),
       };
