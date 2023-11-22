@@ -24,14 +24,16 @@ export const routes = [
         title,
         description,
         completed_at: savedCompletedDate,
+        created_at: savedCreatedDate,
+        updated_at: savedUpdatedDate,
       } = req.body;
       const task = {
         id: savedId ?? randomUUID(),
         title,
         description,
         completed_at: savedCompletedDate ?? null,
-        created_at: todayDate(),
-        updated_at: todayDate(),
+        created_at: savedCreatedDate ?? todayDate(),
+        updated_at: savedUpdatedDate ?? todayDate(),
       };
 
       database.insert("tasks", task);
