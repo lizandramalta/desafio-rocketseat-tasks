@@ -32,6 +32,12 @@ export class Database {
   }
 
   insert(table, data) {
+    if (!data.title || !data.description)
+      return {
+        errorType: "required fields",
+        errorMessage:
+          "Não foi possível criar a tasks, verifique se os campos title e description foram preenchidos.",
+      };
     if (Array.isArray(this.#database[table])) this.#database[table].push(data);
     else this.#database[table] = [data];
     writeCSV(this.#database[table]);
@@ -39,7 +45,21 @@ export class Database {
 
   update(table, id, newData) {
     const rowIndex = this.#database[table].findIndex((row) => row.id === id);
+
+    if (rowIndex == -1)
+      return {
+        errorType: "not found",
+        errorMessage: "O registro não existe no banco de dados.",
+      };
+
     const data = this.#database[table][rowIndex];
+
+    if (!newData.title || !newData.description)
+      return {
+        errorType: "required fields",
+        errorMessage:
+          "Não foi possível atualizar a tasks, verifique se os campos title e description foram preenchidos.",
+      };
 
     if (rowIndex > -1) {
       this.#database[table][rowIndex] = {
@@ -53,6 +73,12 @@ export class Database {
 
   delete(table, id) {
     const rowIndex = this.#database[table].findIndex((row) => row.id === id);
+
+    if (rowIndex == -1)
+      return {
+        errorType: "not found",
+        errorMessage: "O registro não existe no banco de dados.",
+      };
 
     if (rowIndex > -1) {
       this.#database[table].splice(rowIndex, 1);

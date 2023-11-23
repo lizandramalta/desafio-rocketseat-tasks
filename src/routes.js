@@ -46,7 +46,14 @@ export const routes = [
         updated_at: savedUpdatedDate ?? todayDate(),
       };
 
-      database.insert("tasks", task);
+      const error = database.insert("tasks", task);
+
+      if (error) {
+        const { errorType, errorMessage } = error;
+        if (errorType == "not found")
+          return res.writeHead(404).end(errorMessage);
+        return res.writeHead(400).end(errorMessage);
+      }
 
       return res.writeHead(201).end();
     },
@@ -58,10 +65,17 @@ export const routes = [
       const { id } = req.params;
       const { title, description } = req.body;
 
-      database.update("tasks", id, {
+      const error = database.update("tasks", id, {
         title,
         description,
       });
+
+      if (error) {
+        const { errorType, errorMessage } = error;
+        if (errorType == "not found")
+          return res.writeHead(404).end(errorMessage);
+        return res.writeHead(400).end(errorMessage);
+      }
 
       return res.writeHead(204).end();
     },
@@ -73,9 +87,16 @@ export const routes = [
       const { id } = req.params;
       const completed_at = todayDate();
 
-      const statusMessage = database.update("tasks", id, { completed_at });
+      const error = database.update("tasks", id, { completed_at });
 
-      return res.writeHead(204, statusMessage).end();
+      if (error) {
+        const { errorType, errorMessage } = error;
+        if (errorType == "not found")
+          return res.writeHead(404).end(errorMessage);
+        return res.writeHead(400).end(errorMessage);
+      }
+
+      return res.writeHead(204).end();
     },
   },
   {
@@ -84,7 +105,14 @@ export const routes = [
     handler: (req, res) => {
       const { id } = req.params;
 
-      database.delete("tasks", id);
+      const error = database.delete("tasks", id);
+
+      if (error) {
+        const { errorType, errorMessage } = error;
+        if (errorType == "not found")
+          return res.writeHead(404).end(errorMessage);
+        return res.writeHead(400).end(errorMessage);
+      }
 
       return res.writeHead(204).end();
     },
