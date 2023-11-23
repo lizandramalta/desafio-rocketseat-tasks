@@ -9,8 +9,18 @@ export const routes = [
   {
     method: "GET",
     path: buildRoutePath("/tasks"),
-    handler: (_, res) => {
-      const tasks = database.select("tasks");
+    handler: (req, res) => {
+      const { search } = req.query;
+
+      const tasks = database.select(
+        "tasks",
+        search
+          ? {
+              title: search,
+              description: search,
+            }
+          : null
+      );
 
       return res.end(JSON.stringify(tasks));
     },
@@ -63,9 +73,9 @@ export const routes = [
       const { id } = req.params;
       const completed_at = todayDate();
 
-      database.update("tasks", id, { completed_at });
+      const statusMessage = database.update("tasks", id, { completed_at });
 
-      return res.writeHead(204).end();
+      return res.writeHead(204, statusMessage).end();
     },
   },
   {
