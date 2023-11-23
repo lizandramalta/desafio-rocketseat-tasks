@@ -54,6 +54,10 @@ Esta API em Node.js foi desenvolvida como parte do desafio proposto pela Rockets
 - `created_at`: Data de quando a task foi criada.
 - `updated_at`: Data de quando a task foi atualizada.
 
+## Testando a API
+
+Um arquivo de configuração para o Insomnia está disponível, `/insomnia.json`. Você pode importar este arquivo no Insomnia para obter coleções de requisições e facilitar os testes da API.
+
 ## Executando o projeto
 
 1. Clone este repositório.
